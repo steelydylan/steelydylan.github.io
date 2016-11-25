@@ -1,0 +1,217 @@
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>初心者のための gulp 環境構築</title>
+  <link rel="stylesheet" href="./dist/talkie.min.css">
+  <link rel="stylesheet" href="./dist/talkie-default.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.9.1/styles/monokai_sublime.min.css">
+</head>
+<body>
+
+<!-- put your slides -->
+
+<template layout="cover" type="text/x-markdown">
+# 初心者のための Gulp 環境構築
+有限会社アップルップル　堀 悟大
+</template>
+
+<template layout="title" invert type="text/x-markdown"
+          backface="https://nodejs.org/static/images/interactive/background.jpg"
+          backface-filter="brightness(.9)">
+# 目次
+1. Nodeとは
+2. Node.jsのダウンロード
+3. ndenvのダウンロード
+4. npmとは
+5. gulpのインストール
+6. gulpの使い方
+</template>
+
+<template layout="title" invert type="text/x-markdown"
+          backface="https://nodejs.org/static/images/interactive/background.jpg"
+          backface-filter="brightness(.9)">
+# Nodeとは
+Node.jsとはサーバーサイドで動作するJavaScriptのことです。
+今ではsassなどをコンパイルするnode-sassなど様々な便利ツールが出ているので、サーバーサイド以外の用途としても仕様されています。
+</template>
+
+<template layout="title" invert type="text/x-markdown"
+          backface="https://nodejs.org/static/images/interactive/background.jpg"
+          backface-filter="brightness(.9)">
+# Node.jsのダウンロード
+こちらのサイトよりダウンロードできます。
+<a href="https://nodejs.org/ja/">https://nodejs.org/ja/</a>
+</template>
+
+<template layout="title" invert type="text/x-markdown"
+          backface="https://nodejs.org/static/images/interactive/background.jpg"
+          backface-filter="brightness(.9)">
+# ndenvとは
+Node.jsのバージョン管理ツールです。ローカルで使用しているNode.jsのバージョンを.node-versionというファイルを通して、他の人とプロジェクトごとに共有できるため弊社ではこのバージョン管理ツールを使っています。
+</template>
+
+
+<template layout="code" type="text/x-markdown">
+## ndenvのインストール
+
+```shell
+$ git clone https://github.com/riywo/anyenv ~/.anyenv
+$ echo 'export PATH="$HOME/.anyenv/bin:$PATH"' >> ~/.bash_profile
+$ echo 'eval "$(anyenv init -)"' >> ~/.bash_profile
+$ exec $SHELL -l
+
+$ anyenv install ndenv
+$ exec $SHELL -l
+$ ndenv install v4.1.1
+```
+</template>
+
+<template layout="title" invert type="text/x-markdown"
+          backface="https://nodejs.org/static/images/interactive/background.jpg"
+          backface-filter="brightness(.9)">
+# npmとは
+npmとはNode.jsのパッケージ等を管理するためのパッケージ管理ツールです。
+これを使うことでgulpをインストールしたり、パッケージ依存の命令を実行することができます。
+</template>
+
+<template layout="code" type="text/x-markdown">
+## パッケージのダウンロード
+```shell
+$ npm install パッケージ名
+```
+</template>
+
+<template layout="code" type="text/x-markdown">
+パッケージのバージョンをpackage.jsonに残したい場合
+```shell
+$ npm install パッケージ名 --save-dev
+$ npm i -D パッケージ名
+```
+
+```js
+"dependencies": {
+    "atomic-lab": "^1.0.9"
+}
+```
+</template>
+
+<template layout="code" type="text/x-markdown">
+現在製作中のモノが別パッケージに依存している場合
+```shell
+$ npm install パッケージ名 --save
+$ npm i -S パッケージ名
+```
+```js
+"dependencies": {
+    "atomic-lab": "^1.0.9"
+}
+```
+</template>
+
+
+<template layout="title" invert type="text/x-markdown"
+          backface="https://nodejs.org/static/images/interactive/background.jpg"
+          backface-filter="brightness(.9)">
+# gulpとは
+さまざまな作業を自動化するためのツールです。例えば、sassのファイルを保存時に自動でcssに変換させたり、ファイルを圧縮したり、TypeScriptなどのAltJSをJavaScriptに変換したりする作業をこのツールを使って自動化できます。
+</template>
+
+<template layout="code" type="text/x-markdown">
+## gulpのインストール
+gulpはグローバルとローカル、両方にインストールして使うようになっています。
+</template>
+
+<template layout="code" type="text/x-markdown">
+グローバルにダウンロード
+```shell
+$ npm install -g gulp-cli
+```
+ローカルにダウンロード
+```shell
+$ npm install gulp
+```
+</template>
+
+<template layout="code" type="text/x-markdown">
+## gulpの使い方
+
+```js
+gulp.task('default',function(){
+  console.log("hello");
+});
+```
+`gulp`とターミナルで入力して"hello"と出力されればOK
+</template>
+
+<template layout="code" type="text/x-markdown">
+## gulpの使い方
+ファイルの監視
+
+```js
+gulp.task('sass',function(){
+  console.log("hello");
+})
+gulp.task('default',function(){
+  gulp.watch('scss/**/*.sass',['sass']);
+});
+```
+`gulp.watch`でscssの中のファイルが書き換わった場合に`gulp.task('sass')`が実行されます。
+</template>
+
+<template layout="title" invert type="text/x-markdown"
+          backface="https://nodejs.org/static/images/interactive/background.jpg"
+          backface-filter="brightness(.9)">
+## gulpの使い方
+cssファイルのビルドによく使われるgulpプラグイン
+1. gulp-sass
+2. gulp-autoprefixer
+3. gulp-css-comb
+4. gulp-merge-media-queries
+5. gulp-clean-css
+</template>
+
+<template layout="title" invert type="text/x-markdown"
+          backface="https://nodejs.org/static/images/interactive/background.jpg"
+          backface-filter="brightness(.9)">
+## gulpの使い方
+まずはこちらのページからダウンロードしてきてソースコードをみてみましょう
+<a href="https://github.com/mkasumi/learn_scss/tree/master/question">https://github.com/mkasumi/learn_scss/tree/master/question</a>
+</template>
+
+<template layout="title" invert type="text/x-markdown"
+          backface="https://nodejs.org/static/images/interactive/background.jpg"
+          backface-filter="brightness(.9)">
+## gulpの使い方
+gulp-generatorを使うと便利
+<a href="http://steelydylan.github.io/gulp-generator/">http://steelydylan.github.io/gulp-generator/</a>
+</template>
+
+
+
+<script
+  src="https://code.jquery.com/jquery-2.2.4.min.js"
+  integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
+  crossorigin="anonymous"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.9.1/highlight.min.js"></script>
+<script src="./dist/talkie.min.js"></script>
+<script>
+var talkie = Talkie({wide: false});
+
+talkie.key('s').subscribe(talkie.next$);
+talkie.key('n').subscribe(talkie.next$);
+talkie.key('a').subscribe(talkie.prev$);
+talkie.key('p').subscribe(talkie.prev$);
+
+document.addEventListener('DOMContentLoaded', function() {
+  talkie.changed.subscribe(function(current) {
+    // console.clear();
+    // print presenter notes
+    $('.hljs').each(function(){
+      $(this).text($(this).text().replace(/&gt;/g,">"));
+    })
+    // console.info(talkie.notes[current.getAttribute('data-page')]);
+  });
+});
+</script>
+</body>
+</html>
